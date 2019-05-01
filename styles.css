@@ -1,0 +1,253 @@
+/* Reset */
+html,body,div,span,applet,object,iframe,
+h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,
+acronym,address,big,cite,code,del,dfn,em,
+font,img,ins,kbd,q,s,samp,small,strike,
+strong,sub,sup,tt,var,dl,dt,dd,ol,ul,
+li,fieldset,form,label,legend,table,
+caption,tbody,tfoot,thead,tr,th,td,hr {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: normal;
+}
+
+ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Global styles */
+
+html, body {
+  text-size-adjust: 100%;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: Roboto, Arial, "Helvetica Neue", Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #191919;
+}
+
+.page {
+  display: flex;
+  flex-direction: row;
+  min-height: 100%;
+}
+
+.container {
+  flex-grow: 1;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  transition: background .5s;
+  max-width: 100%;
+}
+
+.container.state-intro {
+  background: rgba(21, 21, 21, 0.1);
+}
+
+/* Intro state */
+.container.state-intro .timeline, .container.state-intro .controls,
+.container.state-intro .line {
+  opacity: 0;
+  z-index: -1;
+}
+
+.container.state-intro .image {
+  display: none;
+}
+
+.container.state-intro:not(.state-timing) .upload-popup {
+  display: block;
+}
+
+.container.state-timing .time-popup {
+  opacity: 1;
+  z-index: 3;
+}
+
+/* Elements */
+
+.timeline, .controls {
+  transition: opacity .5s;
+}
+
+/* Time popup */
+
+.upload-popup {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+.upload-popup__label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.upload-popup__label-text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  text-align: center;
+}
+
+.upload-popup__input {
+  opacity: 0;
+}
+
+/* Controls */
+
+.controls {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  display: flex;
+  z-index: 4;
+  opacity: 0;
+  flex-direction: row;
+}
+
+.controls:hover {
+  opacity: 1;
+}
+
+.btn {
+  margin-right: 20px;
+  padding: 0 20px;
+  border: 1px solid rgba(21, 21, 21, 0.1);
+  border-radius: 2px;
+  font-size: 16px;
+  line-height: 30px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.6);
+  transition: background .3s;
+}
+
+.btn:hover {
+  background: rgba(255,255,255,0.9);
+}
+
+.btn:active {
+  box-shadow: inset 0 1px 1px 1px rgba(0,0,0,0.1);
+}
+
+/* Score image */
+
+.image {
+  padding-left: 3px;
+}
+
+.image.active {
+  opacity: 1;
+}
+
+.image img {
+  width: 100%;
+}
+
+/* Time popup */
+
+.time-popup {
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transition: opacity .5s;
+}
+
+.time-popup__i {
+  width: 250px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -101px;
+  margin-top: -6px;
+}
+
+.time-popup__input {
+  outline: none;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  width: 35px;
+  border-bottom: 1px solid rgba(21, 21, 21, 0.1);
+}
+
+.time-popup__button {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+/* Line */
+
+.line {
+  position: absolute;
+  top: -20px;
+  bottom: -20px;
+  z-index: 4;
+  right: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.3);
+  transform: translateX(0);
+}
+
+.line:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -3px;
+  width: 3px;
+  background: rgba(0,0,0,0.3);
+  transform: translateY(100%);
+}
+
+@keyframes line {
+  0% {
+    transform: translateY(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.line.animating:after {
+  transform: translateY(0);
+  animation: line 4s ease;
+}
+
+.line.animating {
+  transition: transform 1s linear;
+}
